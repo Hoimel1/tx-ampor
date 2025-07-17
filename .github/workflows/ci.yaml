@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hadolint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Hadolint
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: docker/Dockerfile.test-gpu
+          config: .hadolint.yaml
+
+  gpu-test:
+    if: runner.os == 'Linux' && contains(runner.labels, 'gpu')
+    runs-on: [self-hosted, gpu]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pull test image and run nvidia-smi
+        run: |
+          docker pull localhost:5000/test-gpu:cuda12.4
+          docker run --rm --gpus all localhost:5000/test-gpu:cuda12.4 nvidia-smi 

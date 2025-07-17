@@ -1,0 +1,9 @@
+# Globale Hadolint-Regeln für tx-ampor
+# Dokumentation: https://github.com/hadolint/hadolint#rules
+
+ignored:
+  - DL3018   # Pin versions in apk add (bei Ubuntu/CUDA irrelevant)
+  - DL4006   # Set the SHELL option -o pipefail (nicht nötig für einfaches CMD)
+  - SC1091   # allow sourcing /etc/os-release in install scripts
+
+failure-threshold: warning 
