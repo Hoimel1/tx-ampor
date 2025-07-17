@@ -1,0 +1,5 @@
+outs:
+- md5: cca2eab6e54c91be03cacdb5a21b1d76
+  size: 6729
+  hash: md5
+  path: dbaasp-tox.fasta
